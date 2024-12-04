@@ -13,7 +13,7 @@ DisplayMessage() {
 eval "$(ssh-agent -s)"
 
 # Obtention du nom de la clé privée
-cleSSH=""
+cleSSH="cle_myca"
 
 # Ajouter votre clef privée à l'agent
 ssh-add ~/.ssh/$cleSSH
