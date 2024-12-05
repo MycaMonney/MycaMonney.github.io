@@ -305,10 +305,10 @@ function savePokedexToLocalStorage() {
     localStorage.setItem('pokedexShiny', JSON.stringify(pokedexShiny)); // Sauvegarde le Pokédex shiny
 }
 
-const shinySound = new Audio('/../audio/shiny-sound.mp3');
+const shinySound = new Audio('/audio/shiny-sound.mp3');
 
 function isShiny() {
-    return Math.random() < 1 / 5; // 1/50 chance
+    return Math.random() < 1 / 25; // 1/50 chance
 }
 function generatePokemonStrength() {
     return Math.floor(Math.random() * (1000 - 10 + 1)) + 10; // Force entre 10 et 1000
