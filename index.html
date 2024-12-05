@@ -87,7 +87,7 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link" id="tab-pokemon-overview" href="#pokemon-overview">Vue Pokémon</a>
-            </li>                              
+            </li>
         </ul>
     </nav>
 
@@ -118,8 +118,8 @@
 
         <!-- Section Pokédex -->
         <div id="pokedex" style="display: none;" class="container mt-4">
-            <h2>Pokédex</h2>
-            <button id="clear-pokedex" class="btn btn-danger">Réinitialiser le Pokédex</button>
+            <h2>Pokemon</h2>
+            <button id="clear-pokedex" class="btn btn-danger">Réinitialiser les pokemons</button>
             <table class="table table-striped" id="captured-pokemon-table">
                 <thead>
                     <tr>
@@ -136,8 +136,8 @@
 
         <!-- Section Pokédex Shiny -->
         <div id="pokedex-shiny" style="display: none;" class="container mt-4">
-            <h2>Pokédex Shiny</h2>
-            <button id="clear-pokedex-shiny" class="btn btn-danger">Réinitialiser le Pokédex Shiny</button>
+            <h2>Pokemon Shiny</h2>
+            <button id="clear-pokedex-shiny" class="btn btn-danger">Réinitialiser le Pokédemon Shiny</button>
             <table class="table table-striped" id="captured-pokemon-shiny-table">
                 <thead>
                     <tr>
@@ -151,13 +151,17 @@
                 </tbody>
             </table>
         </div>
+        <div id="pokemon-overview" style="display: none;" class="container mt-4">
+            <h1>Vue Pokémon</h1>
+            <p id="pokemon-overview-counter-normal" class="mt-3"></p> <!-- Compteur des normaux -->
+            <p id="pokemon-overview-counter-shiny" class="mt-3"></p> <!-- Compteur des shiny -->
+            <button id="clear-pokemon-overview" class="btn btn-danger">Réinitialiser Pokédex</button>
+            <div id="pokemon-overview-list"></div>
+        </div>
+              
     </div>
-    <div id="pokemon-overview" style="display: none;" class="container mt-4">
-        <h1>Vue d'ensemble des Pokémon</h1>
-        <button id="clear-pokemon-overview" class="btn btn-danger">Réinitialiser Vue Pokémon</button>
-        <div id="pokemon-overview-list"></div>
-    </div>
-    
+
+
 
 
     <!-- Conteneur pour la popup -->

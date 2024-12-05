@@ -126,7 +126,7 @@ document.getElementById('tab-map').addEventListener('click', () => {
 
 document.getElementById('tab-pokemon-overview').addEventListener('click', () => {
     showSection('pokemon-overview');
-    displayPokemonOverview(); // Met à jour l'affichage de la vue d'ensemble
+    displayPokemonOverview(); // Met à jour la vue d'ensemble et les compteurs
 });
 
 
@@ -218,8 +218,22 @@ function displayPokemonList(pokemonList) {
         </table>`;
 }
 function displayPokemonOverview() {
-    const overviewContainer = document.getElementById('pokemon-overview-list');
-    overviewContainer.innerHTML = `
+    const normalOverviewContainer = document.getElementById('pokemon-overview-list');
+    const totalPokemon = 1025; // Total des Pokémon
+
+    // Calcul des Pokémon capturés
+    const uniqueNormalCaptured = new Set(pokedex.map(p => p.name)).size;
+    const uniqueShinyCaptured = new Set(pokedexShiny.map(p => p.name)).size;
+
+    // Mettre à jour les compteurs dans l'overview
+    const normalCounterElement = document.getElementById('pokemon-overview-counter-normal');
+    const shinyCounterElement = document.getElementById('pokemon-overview-counter-shiny');
+
+    normalCounterElement.textContent = `Pokémon normaux capturés : ${uniqueNormalCaptured} / ${totalPokemon}`;
+    shinyCounterElement.textContent = `Pokémon shiny capturés : ${uniqueShinyCaptured} / ${totalPokemon}`;
+
+    // Vue pour les Pokémon normaux
+    normalOverviewContainer.innerHTML = `
         <table class="table">
             <thead>
                 <tr>
@@ -230,20 +244,22 @@ function displayPokemonOverview() {
             </thead>
             <tbody>
                 ${allPokemon.map((pokemon, index) => {
-                    const isCaptured = pokedex.some(p => p.name === pokemon.name.fr); // Vérifie si capturé
-                    const isSeen = storedAppearances[pokemon.name?.fr]?.some(ap => ap.seen); // Vérifie si vu
+                    const isCaptured = pokedex.some(p => p.name === pokemon.name.fr);
+                    const isShinyCaptured = pokedexShiny.some(p => p.name === pokemon.name.fr);
 
-                    // Définir les valeurs par défaut
+                    // Détermine si le Pokémon est vu/capturé
+                    const isSeen = storedAppearances[pokemon.name?.fr]?.some(ap => ap.seen);
+                    let imageFilter = 'brightness(0)'; // Par défaut, masqué
                     let displayName = '???';
-                    let imageFilter = 'brightness(0)'; // Par défaut : image en noir
-                    let imageUrl = pokemon.sprites?.regular || '/img/pokeball.png'; // Par défaut : image du Pokémon ou Pokéball
+                    let imageUrl = pokemon.sprites?.regular || '/img/pokeball.png';
 
-                    if (isSeen) {
-                        imageFilter = 'brightness(1)'; // Image normale si vu
+                    // Si capturé ou shiny, on met le filtre brightness(1)
+                    if (isCaptured || isShinyCaptured || isSeen) {
+                        imageFilter = 'brightness(1)';
                     }
 
-                    if (isCaptured) {
-                        displayName = pokemon.name?.fr || '???'; // Afficher le nom si capturé
+                    if (isCaptured || isShinyCaptured) {
+                        displayName = pokemon.name?.fr || '???';
                     }
 
                     return `
@@ -262,6 +278,9 @@ function displayPokemonOverview() {
         </table>
     `;
 }
+
+
+
 function saveAppearancesToLocalStorage() {
     localStorage.setItem('storedAppearances', JSON.stringify(storedAppearances));
 }
@@ -286,8 +305,10 @@ function savePokedexToLocalStorage() {
     localStorage.setItem('pokedexShiny', JSON.stringify(pokedexShiny)); // Sauvegarde le Pokédex shiny
 }
 
+const shinySound = new Audio('audio/shiny-sound.mp3');
+
 function isShiny() {
-    return Math.random() < 1 / 50; // 1/50 chance
+    return Math.random() < 1 / 5; // 1/50 chance
 }
 function generatePokemonStrength() {
     return Math.floor(Math.random() * (1000 - 10 + 1)) + 10; // Force entre 10 et 1000
@@ -457,6 +478,26 @@ function removePokemonAppearance(pokemonName, marker) {
     }
 }
 
+function resetPokemonView() {
+    if (confirm("Êtes-vous sûr de vouloir réinitialiser la vue Pokémon ?")) {
+        // Réinitialise les données
+        storedAppearances = {};
+        pokedex = [];
+        pokedexShiny = [];
+
+        // Supprime les données du localStorage
+        localStorage.removeItem('storedAppearances');
+        localStorage.removeItem('pokedex');
+        localStorage.removeItem('pokedexShiny');
+
+        // Met à jour les affichages
+        clearPokemonMarkers(); // Supprime les marqueurs de la carte
+        updatePokedexDisplay(); // Met à jour les tableaux du Pokédex
+        displayPokemonOverview(); // Met à jour la vue d'ensemble
+
+        alert("La vue Pokémon a été réinitialisée.");
+    }
+}
 function clearPokemonOverview() {
     if (confirm("Êtes-vous sûr de vouloir réinitialiser la vue d'ensemble des Pokémon ?")) {
         storedAppearances = {}; // Réinitialiser les apparitions
@@ -476,7 +517,26 @@ function clearPokemonOverview() {
 }
 
 
-document.getElementById('clear-pokemon-overview').addEventListener('click', clearPokemonOverview);
+document.getElementById('clear-pokemon-overview').addEventListener('click', () => {
+    if (confirm("Êtes-vous sûr de vouloir réinitialiser la vue Pokémon ?")) {
+        // Réinitialise les données
+        storedAppearances = {};
+        pokedex = [];
+        pokedexShiny = [];
+
+        // Supprime les données du localStorage
+        localStorage.removeItem('storedAppearances');
+        localStorage.removeItem('pokedex');
+        localStorage.removeItem('pokedexShiny');
+
+        // Met à jour les affichages
+        clearPokemonMarkers(); // Supprime les marqueurs de la carte
+        updatePokedexDisplay(); // Met à jour les tableaux du Pokédex
+        displayPokemonOverview(); // Met à jour la vue d'ensemble
+
+        alert("La vue Pokémon a été réinitialisée.");
+    }
+});
 
 function createPokemonIcon(imageUrl) {
     return L.icon({
@@ -495,16 +555,12 @@ function showPokemonPopup(imageUrl, shinyImageUrl, pokemon, marker) {
     const popupPokeball = document.getElementById('popup-pokeball');
     const popupCaptureChance = document.getElementById('popup-capture-chance');
 
-        // Marquer comme vu si ce n'est pas déjà le cas
-        if (!storedAppearances[pokemon.name?.fr]?.some(ap => ap.seen)) {
-            if (!storedAppearances[pokemon.name?.fr]) {
-                storedAppearances[pokemon.name?.fr] = [];
-            }
-            storedAppearances[pokemon.name?.fr].push({ seen: true }); // Enregistrer comme vu
-        }
-
     // Vérifie si le Pokémon est shiny
     const shiny = isShiny();
+    if (shiny) {
+        shinySound.play(); // Joue le son shiny
+    }
+
     popupImage.src = shiny ? shinyImageUrl : imageUrl; // Utilise l'image shiny si shiny, sinon normale
 
     // Génère la force du Pokémon
