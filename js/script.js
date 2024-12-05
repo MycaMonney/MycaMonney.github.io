@@ -124,6 +124,28 @@ document.getElementById('tab-map').addEventListener('click', () => {
     }, 300);
 });
 
+document.getElementById('tab-pokemon-overview').addEventListener('click', () => {
+    showSection('pokemon-overview');
+    displayPokemonOverview(); // Met à jour l'affichage de la vue d'ensemble
+});
+
+
+function showSection(sectionId) {
+    const sections = ['list', 'map', 'pokedex', 'pokedex-shiny', 'pokemon-overview'];
+    sections.forEach(id => {
+        const section = document.getElementById(id);
+        if (section) {
+            section.style.display = id === sectionId ? 'block' : 'none';
+        }
+    });
+
+    // Réinitialise la taille de la carte si elle est affichée
+    if (sectionId === 'map' && map) {
+        setTimeout(() => map.invalidateSize(), 300);
+    }
+}
+
+
 function generateRandomPosition(centerLat, centerLon, radius) {
     const radiusInDegrees = radius / 111; // Approximation de 111 km par degré de latitude
     const u = Math.random();
@@ -195,6 +217,65 @@ function displayPokemonList(pokemonList) {
             </tbody>
         </table>`;
 }
+function displayPokemonOverview() {
+    const overviewContainer = document.getElementById('pokemon-overview-list');
+    overviewContainer.innerHTML = `
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Index</th>
+                    <th>Image</th>
+                    <th>Nom</th>
+                </tr>
+            </thead>
+            <tbody>
+                ${allPokemon.map((pokemon, index) => {
+                    const isCaptured = pokedex.some(p => p.name === pokemon.name.fr); // Vérifie si capturé
+                    const isSeen = storedAppearances[pokemon.name?.fr]?.some(ap => ap.seen); // Vérifie si vu
+
+                    // Définir les valeurs par défaut
+                    let displayName = '???';
+                    let imageFilter = 'brightness(0)'; // Par défaut : image en noir
+                    let imageUrl = pokemon.sprites?.regular || '/img/pokeball.png'; // Par défaut : image du Pokémon ou Pokéball
+
+                    if (isSeen) {
+                        imageFilter = 'brightness(1)'; // Image normale si vu
+                    }
+
+                    if (isCaptured) {
+                        displayName = pokemon.name?.fr || '???'; // Afficher le nom si capturé
+                    }
+
+                    return `
+                        <tr>
+                            <td>${index + 1}</td>
+                            <td>
+                                <img src="${imageUrl}" 
+                                     alt="${pokemon.name?.fr || '???'}" 
+                                     style="width: 50px; height: 50px; filter: ${imageFilter};">
+                            </td>
+                            <td>${displayName}</td>
+                        </tr>
+                    `;
+                }).join('')}
+            </tbody>
+        </table>
+    `;
+}
+function saveAppearancesToLocalStorage() {
+    localStorage.setItem('storedAppearances', JSON.stringify(storedAppearances));
+}
+
+function loadAppearancesFromLocalStorage() {
+    const storedData = localStorage.getItem('storedAppearances');
+    if (storedData) {
+        storedAppearances = JSON.parse(storedData);
+    }
+}
+document.addEventListener('DOMContentLoaded', () => {
+    loadAppearancesFromLocalStorage(); // Charger les apparitions
+    updatePokedexDisplay(); // Met à jour l'affichage initial du Pokédex
+});
 
 
 let pokedex = JSON.parse(localStorage.getItem('pokedex')) || []; // Charge les données depuis le localStorage ou initialise un tableau vide
@@ -206,7 +287,7 @@ function savePokedexToLocalStorage() {
 }
 
 function isShiny() {
-    return Math.random() < 1 / 2; // 1/50 chance
+    return Math.random() < 1 / 50; // 1/50 chance
 }
 function generatePokemonStrength() {
     return Math.floor(Math.random() * (1000 - 10 + 1)) + 10; // Force entre 10 et 1000
@@ -323,6 +404,7 @@ function attemptCapture(pokemon, strength, shiny) {
 
         savePokedexToLocalStorage(); // Sauvegarde les changements dans le localStorage
         updatePokedexDisplay(); // Met à jour les deux tableaux
+        saveAppearancesToLocalStorage(); // Sauvegarde l'état des apparitions
     } else {
         alert(`Le Pokémon s'est échappé... Vous aviez ${captureChance}% de chance.`);
     }
@@ -332,6 +414,33 @@ function attemptCapture(pokemon, strength, shiny) {
 document.addEventListener('DOMContentLoaded', () => {
     updatePokedexDisplay(); // Met à jour l'affichage initial du Pokédex
 });
+
+document.addEventListener("DOMContentLoaded", function () {
+    const tabs = document.querySelectorAll(".nav-link"); // Sélectionner tous les onglets
+    const sections = document.querySelectorAll("#content > div"); // Sélectionner toutes les sections
+
+    tabs.forEach(tab => {
+        tab.addEventListener("click", function (event) {
+            event.preventDefault();
+
+            // Retirer la classe "active" de tous les onglets
+            tabs.forEach(t => t.classList.remove("active"));
+
+            // Ajouter la classe "active" à l'onglet cliqué
+            this.classList.add("active");
+
+            // Masquer toutes les sections
+            sections.forEach(section => section.style.display = "none");
+
+            // Afficher la section liée à l'onglet cliqué
+            const target = document.querySelector(this.getAttribute("href"));
+            if (target) {
+                target.style.display = "block";
+            }
+        });
+    });
+});
+
 
 document.getElementById('close-popup').onclick = () => {
     closePopupAndRemovePokemon(); // Ferme le popup et supprime le Pokémon
@@ -348,6 +457,26 @@ function removePokemonAppearance(pokemonName, marker) {
     }
 }
 
+function clearPokemonOverview() {
+    if (confirm("Êtes-vous sûr de vouloir réinitialiser la vue d'ensemble des Pokémon ?")) {
+        storedAppearances = {}; // Réinitialiser les apparitions
+        localStorage.removeItem('storedAppearances'); // Supprimer les données du localStorage
+
+        // Réinitialiser l'état des Pokémon dans l'overview
+        allPokemon.forEach(pokemon => {
+            if (pokemon.name?.fr) {
+                const defaultAppearance = generateRandomPosition(0, 0, 5); // Position par défaut
+                storedAppearances[pokemon.name.fr] = [{ seen: false }];
+            }
+        });
+
+        displayPokemonOverview(); // Met à jour l'affichage
+        alert("La vue d'ensemble des Pokémon a été réinitialisée, les noms sont masqués.");
+    }
+}
+
+
+document.getElementById('clear-pokemon-overview').addEventListener('click', clearPokemonOverview);
 
 function createPokemonIcon(imageUrl) {
     return L.icon({
@@ -365,6 +494,14 @@ function showPokemonPopup(imageUrl, shinyImageUrl, pokemon, marker) {
     const popupStrength = document.getElementById('popup-strength');
     const popupPokeball = document.getElementById('popup-pokeball');
     const popupCaptureChance = document.getElementById('popup-capture-chance');
+
+        // Marquer comme vu si ce n'est pas déjà le cas
+        if (!storedAppearances[pokemon.name?.fr]?.some(ap => ap.seen)) {
+            if (!storedAppearances[pokemon.name?.fr]) {
+                storedAppearances[pokemon.name?.fr] = [];
+            }
+            storedAppearances[pokemon.name?.fr].push({ seen: true }); // Enregistrer comme vu
+        }
 
     // Vérifie si le Pokémon est shiny
     const shiny = isShiny();
@@ -482,11 +619,20 @@ document.getElementById('clear-pokedex').addEventListener('click', clearPokedex)
 document.getElementById('clear-pokedex-shiny').addEventListener('click', clearPokedexShiny);
 
 function showSection(sectionId) {
-    const sections = ['list', 'map', 'pokedex', 'pokedex-shiny'];
+    const sections = ['list', 'map', 'pokedex', 'pokedex-shiny', 'pokemon-overview'];
     sections.forEach(id => {
-        document.getElementById(id).style.display = id === sectionId ? 'block' : 'none';
+        const section = document.getElementById(id);
+        if (section) {
+            section.style.display = id === sectionId ? 'block' : 'none';
+        }
     });
+
+    // Réinitialise la taille de la carte si elle est affichée
+    if (sectionId === 'map' && map) {
+        setTimeout(() => map.invalidateSize(), 300);
+    }
 }
+
 
 document.getElementById('tab-pokedex').addEventListener('click', () => {
     showSection('pokedex');
