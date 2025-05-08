@@ -55,4 +55,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 } else {
     echo "Formulaire non soumis.<br>"; // Message si aucune requête POST
 }
+//c'est ne
 ?>
