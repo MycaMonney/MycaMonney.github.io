@@ -34,21 +34,33 @@ CREATE TABLE instincts (
   image_url VARCHAR(255) NOT NULL
 );
 
--- Répartition avec drop_rate total = 100
+-- Total drop_rate = 100
 INSERT INTO instincts (instinct_name, drop_rate, image_url) VALUES
-('Aidan', 6.0, 'img/Aidan.png'),
+('Aidan', 5.46875, 'img/Aidan.png'),
+('Asterion', 5.46875, 'img/asterion.png'),
+('Flamino', 5.46875, 'img/Flamino.png'),
+('Floratop', 5.46875, 'img/Floraptor.png'),
+('Myca', 5.46875, 'img/Myca.png'),
+('Nepturtle', 5.46875, 'img/Nepturtle.png'),
+('Sylvois', 5.46875, 'img/Sylvowis.png'),
+('Tim', 5.46875, 'img/Tim.png'),
+('Torshield', 5.46875, 'img/Torshield.png'),
+('Turtisplash', 5.46875, 'img/Turtisplash.png'),
+('Tylihibou', 5.46875, 'img/Tylhibou.png'),
+('volcaragon', 5.46875, 'img/volcaragon.png'),
+('lizea', 5.46875, 'img/lizea.png'),
+('angelina', 5.46875, 'img/angelina.png'),
+('alyssa', 5.46875, 'img/alyssa.png'),
+('lucien', 5.46875, 'img/lucien.png'),
+('reuben', 5.46875, 'img/reuben.png'),
+
 ('AidanFullart', 1.5, 'img/AidanFullart.png'),
-('Asterion', 6.0, 'img/asterion.png'),
-('Flamino', 7.0, 'img/Flamino.png'),
-('Floratop', 7.0, 'img/Floraptor.png'),
-('MistralusFullart', 0.5, 'img/MistralusFullart.png'),
-('Myca', 6.0, 'img/Myca.png'),
 ('MycaFullart', 1.5, 'img/MycaFullart.png'),
-('Nepturtle', 6.0, 'img/Nepturtle.png'),
-('Sylvois', 6.0, 'img/Sylvowis.png'),
-('Tim', 6.0, 'img/Tim.png'),
 ('TimFullart', 1.5, 'img/TimFullart.png'),
-('Torshield', 6.0, 'img/Torshield.png'),
-('Turtisplash', 6.0, 'img/Turtisplash.png'),
-('Tylihibou', 6.0, 'img/Tylhibou.png'),
-('volcaragon', 6.0, 'img/volcaragon.png');
+('lizeaFullart', 1.5, 'img/lizeaFullart.png'),
+('angelinaFullart', 1.5, 'img/angelinaFullart.png'),
+('alyssaFullart', 1.5, 'img/alyssaFullart.png'),
+('lucienFullart', 1.5, 'img/lucienFullart.png'),
+('reubenFullart', 1.5, 'img/reubenFullart.png'),
+
+('MistralusFullart', 0.5, 'img/MistralusFullart.png');
