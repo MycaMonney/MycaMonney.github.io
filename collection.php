@@ -22,11 +22,13 @@ try {
 // Liste ordonnée des cartes (noms d'images)
 $orderedCards = [
     "Tylhibou.png",
-    "Floraptor.png",
     "Sylvowis.png",
+    "Floraptor.png",
+    "floraptorEx.png",
     "Flamino.png",
     "asterion.png",
     "volcaragon.png",
+    "volcaragonEx.png",
     "Turtisplash.png",
     "Nepturtle.png",
     "Torshield.png",

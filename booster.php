@@ -142,7 +142,8 @@ $pseudo = htmlspecialchars($_SESSION["pseudo"]);
     "angelina.png", "angelinaFullart.png",
     "alyssa.png", "alyssaFullart.png",
     "lucien.png", "lucienFullart.png",
-    "reuben.png", "reubenFullart.png"
+    "reuben.png", "reubenFullart.png",
+    "volcaragonEx.png", "floraptorEx.png"
 ];
 
 

@@ -36,24 +36,30 @@ CREATE TABLE instincts (
 
 -- Total drop_rate = 100
 INSERT INTO instincts (instinct_name, drop_rate, image_url) VALUES
-('Aidan', 5.46875, 'img/Aidan.png'),
-('Asterion', 5.46875, 'img/asterion.png'),
-('Flamino', 5.46875, 'img/Flamino.png'),
-('Floratop', 5.46875, 'img/Floraptor.png'),
-('Myca', 5.46875, 'img/Myca.png'),
-('Nepturtle', 5.46875, 'img/Nepturtle.png'),
-('Sylvois', 5.46875, 'img/Sylvowis.png'),
-('Tim', 5.46875, 'img/Tim.png'),
-('Torshield', 5.46875, 'img/Torshield.png'),
-('Turtisplash', 5.46875, 'img/Turtisplash.png'),
-('Tylihibou', 5.46875, 'img/Tylhibou.png'),
-('volcaragon', 5.46875, 'img/volcaragon.png'),
-('lizea', 5.46875, 'img/lizea.png'),
-('angelina', 5.46875, 'img/angelina.png'),
-('alyssa', 5.46875, 'img/alyssa.png'),
-('lucien', 5.46875, 'img/lucien.png'),
-('reuben', 5.46875, 'img/reuben.png'),
+-- Communes (drop_rate = 5.09375)
+('Aidan', 5.09375, 'img/Aidan.png'),
+('Asterion', 5.09375, 'img/asterion.png'),
+('Flamino', 5.09375, 'img/Flamino.png'),
+('Floratop', 5.09375, 'img/Floraptor.png'),
+('Myca', 5.09375, 'img/Myca.png'),
+('Nepturtle', 5.09375, 'img/Nepturtle.png'),
+('Sylvois', 5.09375, 'img/Sylvowis.png'),
+('Tim', 5.09375, 'img/Tim.png'),
+('Torshield', 5.09375, 'img/Torshield.png'),
+('Turtisplash', 5.09375, 'img/Turtisplash.png'),
+('Tylihibou', 5.09375, 'img/Tylhibou.png'),
+('volcaragon', 5.09375, 'img/volcaragon.png'),
+('lizea', 5.09375, 'img/lizea.png'),
+('angelina', 5.09375, 'img/angelina.png'),
+('alyssa', 5.09375, 'img/alyssa.png'),
+('lucien', 5.09375, 'img/lucien.png'),
+('reuben', 5.09375, 'img/reuben.png'),
 
+-- Ex (drop_rate = 3.0)
+('FloraptorEx', 3.0, 'img/FloraptorEx.png'),
+('volcaragonEx', 3.0, 'img/volcaragonEx.png'),
+
+-- Fullart (drop_rate = 1.5)
 ('AidanFullart', 1.5, 'img/AidanFullart.png'),
 ('MycaFullart', 1.5, 'img/MycaFullart.png'),
 ('TimFullart', 1.5, 'img/TimFullart.png'),
@@ -63,4 +69,5 @@ INSERT INTO instincts (instinct_name, drop_rate, image_url) VALUES
 ('lucienFullart', 1.5, 'img/lucienFullart.png'),
 ('reubenFullart', 1.5, 'img/reubenFullart.png'),
 
+-- Ultra rare
 ('MistralusFullart', 0.5, 'img/MistralusFullart.png');
