@@ -135,10 +135,16 @@ $pseudo = htmlspecialchars($_SESSION["pseudo"]);
 
     <script>
         const images = [
-            "asterion.png", "Flamino.png", "Floraptor.png", "MistralusFullart.png", "Nepturtle.png",
-            "Sylvowis.png", "Torshield.png", "Turtisplash.png", "Tylhibou.png", "Tim.png",
-            "TimFullart.png", "Aidan.png", "AidanFullart.png", "Myca.png", "MycaFullart.png"
-        ];
+    "asterion.png", "Flamino.png", "Floraptor.png", "MistralusFullart.png", "Nepturtle.png",
+    "Sylvowis.png", "Torshield.png", "Turtisplash.png", "Tylhibou.png", "Tim.png",
+    "TimFullart.png", "Aidan.png", "AidanFullart.png", "Myca.png", "MycaFullart.png",
+    "lizea.png", "lizeaFullart.png", 
+    "angelina.png", "angelinaFullart.png",
+    "alyssa.png", "alyssaFullart.png",
+    "lucien.png", "lucienFullart.png",
+    "reuben.png", "reubenFullart.png"
+];
+
 
         let drawnCards = [];
         let normalCards = [];

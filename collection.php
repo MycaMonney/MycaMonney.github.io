@@ -33,11 +33,22 @@ $orderedCards = [
     "Aidan.png",
     "Tim.png",
     "Myca.png",
+    "lizea.png",
+    "angelina.png",
+    "alyssa.png",
+    "lucien.png",
+    "reuben.png",
     "AidanFullart.png",
     "TimFullart.png",
     "MycaFullart.png",
+    "lizeaFullart.png",
+    "angelinaFullart.png",
+    "alyssaFullart.png",
+    "lucienFullart.png",
+    "reubenFullart.png",
     "MistralusFullart.png"
 ];
+
 
 // Récupération des cartes possédées par l'utilisateur
 $stmt = $pdo->prepare("SELECT instinct_name, quantity, image_url FROM user_instincts WHERE user_id = ?");
