@@ -36,30 +36,30 @@ CREATE TABLE instincts (
 
 -- Total drop_rate = 100
 INSERT INTO instincts (instinct_name, drop_rate, image_url) VALUES
--- Communes (drop_rate = 5.09375)
-('Aidan', 5.09375, 'img/Aidan.png'),
-('Asterion', 5.09375, 'img/asterion.png'),
-('Flamino', 5.09375, 'img/Flamino.png'),
-('Floratop', 5.09375, 'img/Floraptor.png'),
-('Myca', 5.09375, 'img/Myca.png'),
-('Nepturtle', 5.09375, 'img/Nepturtle.png'),
-('Sylvois', 5.09375, 'img/Sylvowis.png'),
-('Tim', 5.09375, 'img/Tim.png'),
-('Torshield', 5.09375, 'img/Torshield.png'),
-('Turtisplash', 5.09375, 'img/Turtisplash.png'),
-('Tylihibou', 5.09375, 'img/Tylhibou.png'),
-('volcaragon', 5.09375, 'img/volcaragon.png'),
-('lizea', 5.09375, 'img/lizea.png'),
-('angelina', 5.09375, 'img/angelina.png'),
-('alyssa', 5.09375, 'img/alyssa.png'),
-('lucien', 5.09375, 'img/lucien.png'),
-('reuben', 5.09375, 'img/reuben.png'),
+-- Communes (18 × 4.52778)
+('Aidan', 4.52778, 'img/Aidan.png'),
+('Asterion', 4.52778, 'img/asterion.png'),
+('Flamino', 4.52778, 'img/Flamino.png'),
+('Floratop', 4.52778, 'img/Floraptor.png'),
+('Myca', 4.52778, 'img/Myca.png'),
+('Nepturtle', 4.52778, 'img/Nepturtle.png'),
+('Sylvois', 4.52778, 'img/Sylvowis.png'),
+('Tim', 4.52778, 'img/Tim.png'),
+('Torshield', 4.52778, 'img/Torshield.png'),
+('Turtisplash', 4.52778, 'img/Turtisplash.png'),
+('Tylihibou', 4.52778, 'img/Tylhibou.png'),
+('volcaragon', 4.52778, 'img/volcaragon.png'),
+('lizea', 4.52778, 'img/lizea.png'),
+('angelina', 4.52778, 'img/angelina.png'),
+('alyssa', 4.52778, 'img/alyssa.png'),
+('lucien', 4.52778, 'img/lucien.png'),
+('reuben', 4.52778, 'img/reuben.png'),
 
--- Ex (drop_rate = 3.0)
-('FloraptorEx', 3.0, 'img/FloraptorEx.png'),
+-- Ex (2 × 3.0)
+('FloraptorEx', 3.0, 'img/floraptorEx.png'),
 ('volcaragonEx', 3.0, 'img/volcaragonEx.png'),
 
--- Fullart (drop_rate = 1.5)
+-- Fullart (8 × 1.5)
 ('AidanFullart', 1.5, 'img/AidanFullart.png'),
 ('MycaFullart', 1.5, 'img/MycaFullart.png'),
 ('TimFullart', 1.5, 'img/TimFullart.png'),
