@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Connexion</title>
+    <title>Créer un compte</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <style>
@@ -71,14 +71,14 @@
     }
 </style>
 <body>
-    <h1>Connexion</h1>
-    <form action="login.php" method="post">
-        <label for="username">Pseudo :</label>
-        <input type="text" id="username" name="username" required>
-        <label for="password">Mot de passe :</label>
-        <input type="password" id="password" name="password" required>
-        <p>Pas de compte ? <a href="signup.html">Créer un compte</a></p>
-        <button type="submit">Connexion</button>
+    <h1>Créer un compte</h1>
+    <form action="signup.php" method="post">
+        <label for="new_username">Pseudo :</label>
+        <input type="text" id="new_username" name="username" required>
+        <label for="new_password">Mot de passe :</label>
+        <input type="password" id="new_password" name="password" required>
+        <p>Déjà un compte ? <a href="index.html">Connexion</a></p>
+        <button type="submit">Créer un compte</button>
     </form>
 </body>
 </html>
